@@ -10,6 +10,18 @@ use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
+	public function index()
+	{
+		$applications = Application::all();
+        // return $applications;
+		return view('applications.index', compact('applications'));
+	}
+
+	public function create()
+	{
+		return view('applications.create');
+	}
+
     public function store(Request $request)
     {
     	// return $request->all();
@@ -37,7 +49,10 @@ class ApplicationController extends Controller
     	$application->save();
 
     	return redirect()->route('application.create')->with('message', 'Your application has been submitted successfully! A response will be sent to you soon.');
-    	
+    }
 
+    public function show(Application $application)
+    {
+        return view('applications.show', compact('application'));
     }
 }

@@ -74,7 +74,7 @@
                                 </ul>
                             </li>
                             <li><a href="{{ route('rates.index') }}">Settings</a></li>
-                            <li><a href="{{ route('applications') }}">Applications</a></li>
+                            <li><a href="{{ route('applications.index') }}">Applications</a></li>
                         @endif
                     </ul>
                 </div>
