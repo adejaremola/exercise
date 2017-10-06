@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-datepicker.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -72,9 +73,9 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li><a href="{{ route('rates.index') }}">Settings</a></li>
+                            <li><a href="{{ route('applications') }}">Applications</a></li>
                         @endif
-                        <li><a href="{{ route('settings') }}">Settings</a></li>
-                        <li><a href="{{ route('applications') }}">Applications</a></li>
                     </ul>
                 </div>
             </div>
@@ -85,5 +86,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
 </body>
 </html>

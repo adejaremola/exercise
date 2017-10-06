@@ -18,4 +18,5 @@ class Application extends Model
     	'travel_date',
     	'ticket_upload',
     	'passport_upload',
-];
+	];
+}

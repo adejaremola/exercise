@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Application;
 
+use Image;
+
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
     public function store(Request $request)
     {
-    	return $request->all();
+    	// return $request->all();
     	$application = new Application;
     	$application->names = $request->names;
     	$application->email = $request->email;
@@ -18,7 +20,7 @@ class ApplicationController extends Controller
     	$application->passport_no = $request->passport_no;
     	$application->request_type = $request->request_type;
     	$application->amount = $request->amount;
-    	$application->travel_date = $request->travel_date;
+    	$application->travel_date = date('Y-m-d', strtotime(str_replace('-', '/', $request->travel_date)));
 
     	$image1 = $request->ticket_upload;
     	$imagename1 = time()."-".$image1->getClientOriginalName();
@@ -34,7 +36,7 @@ class ApplicationController extends Controller
 
     	$application->save();
 
-    	return redirect()->route('/')->with('message', 'Your application has been submitted successfully! A response will be sent to you soon.');
+    	return redirect()->route('application.create')->with('message', 'Your application has been submitted successfully! A response will be sent to you soon.');
     	
 
     }

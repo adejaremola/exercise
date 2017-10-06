@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="container">
+    @if(Session::has('message'))
+        <div class="alert alert-info">
+            {{ Session::get('message') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
-                @if(Session::has('message'))
-                    <div class="alert alert-info">
-                        {{ Session::get('message') }}
-                    </div>
-                @endif
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('request') }}"  enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('application.store') }}"  enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -45,7 +45,7 @@
                         <div class="form-group{{ $errors->has('passport_no') ? ' has-error' : '' }}">
                             <label for="passport_no" class="col-md-4 control-label">Passport Number</label>
                             <div class="col-md-6">
-                                <input id="passport_no" type="passport_no" class="form-control" name="passport_no" value="{{ old('passport_no') }}" required>
+                                <input id="passport_no" type="text" class="form-control" name="passport_no" value="{{ old('passport_no') }}" required>
 
                                 @if ($errors->has('passport_no'))
                                     <span class="help-block">
@@ -74,14 +74,18 @@
                         </div>
                         <div class="form-group{{ $errors->has('travel_date') ? ' has-error' : '' }}">
                             <label for="travel_date" class="col-md-4 control-label">Travel Date</label>
-
                             <div class="col-md-6">
+                            <div class="input-group date" data-provide="datepicker">
                                 <input id="travel_date" type="text" class="form-control" name="travel_date" required>
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
                                 @if ($errors->has('travel_date'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('travel_date') }}</strong>
                                     </span>
                                 @endif
+                            </div>
                             </div>
                         </div>
 
@@ -93,7 +97,7 @@
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('ticket_upload') ? ' has-error' : '' }}">
-                            <label for="ticket_upload" class="col-md-4 control-label">Amount</label>
+                            <label for="ticket_upload" class="col-md-4 control-label">Scan and Upload Ticket</label>
 
                             <div class="col-md-6">
                                 <input id="ticket_upload" type="file" class="form-control" name="ticket_upload" required>
