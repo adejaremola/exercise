@@ -10,6 +10,11 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    {{ $application->names }}
+                </div>
+            </div>
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     Bio
                 </div>
@@ -23,7 +28,7 @@
                             </tr>
                             <tr>
                                 <td>Email Address</td>
-                                <td>{{ $application->names }}</td>
+                                <td>{{ $application->email }}</td>
                             </tr>
                             <tr>
                                 <td>Passport Number</td>
@@ -38,8 +43,16 @@
                                 <td>{{ $application->amount }}</td>
                             </tr>
                             <tr>
+                                <td>Currency</td>
+                                <td id="currency">{{ $application->currency }}</td>
+                            </tr>
+                            <tr>
                                 <td>Travel Date</td>
                                 <td>{{ $application->travel_date }}</td>
+                            </tr>
+                            <tr>
+                                <td>Payment</td>
+                                <td>{{ $payment }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -71,8 +84,17 @@
                     </table>
                 </div>
             </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-group">
+                        <a type="button" href="{{ route('application.mail', [$application->id, $payment]) }}" class="btn btn-primary">Email Applicant</a>
+                        <a type="button" class="btn btn-warning">Back</a>
+                    </div>
+                </div>
+            </div>
             
         </div>
     </div>
 </div>
 @endsection
+

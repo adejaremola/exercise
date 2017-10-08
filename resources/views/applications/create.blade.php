@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Apply For Foreign Currency</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('application.store') }}"  enctype="multipart/form-data">
                         {{ csrf_field() }}
@@ -71,7 +71,7 @@
                                     </span>
                                 @endif
                             </div>
-                        </div>
+                        </div>                        
                         <div class="form-group{{ $errors->has('travel_date') ? ' has-error' : '' }}">
                             <label for="travel_date" class="col-md-4 control-label">Travel Date</label>
                             <div class="col-md-6">
@@ -94,6 +94,24 @@
 
                             <div class="col-md-6">
                                 <input id="amount" type="number" class="form-control" name="amount" required>
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('currency') ? ' has-error' : '' }}">
+                            <label for="currency" class="col-md-4 control-label">Needed Currency</label>
+
+                            <div class="col-md-6">
+                                <select id="currency" class="form-control" name="currency" required>
+                                    <option selected="selected">- Please Select Needed Currency -</option>
+                                    @foreach($rates as $rate)
+                                        <option value="{{ $rate->name }}">{{ $rate->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                @if ($errors->has('currency'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('currency') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('ticket_upload') ? ' has-error' : '' }}">

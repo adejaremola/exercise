@@ -29,14 +29,22 @@ Route::prefix('rates')->group( function ()
 
 Route::prefix('applications')->group( function ()
 {
-	# code...
+	# CRUD for Applications...
 	Route::get('/', 'ApplicationController@index')->name('applications.index');
 	Route::get('/create', 'ApplicationController@create')->name('application.create');
 	Route::post('/', 'ApplicationController@store')->name('application.store');
-	Route::get('/{application}', 'ApplicationController@show')->name('application.show');
-	Route::get('/{application}/edit', 'ApplicationController@edit')->name('application.edit');
-	Route::post('/{application}', 'ApplicationController@update')->name('application.update');
-	Route::post('/{application}/delete', 'ApplicationController@delete')->name('application.delete');
+
+	Route::middleware('auth')->group(function ()
+	{
+		Route::get('/{application}', 'ApplicationController@show')->name('application.show');
+		Route::get('/{application}/edit', 'ApplicationController@edit')->name('application.edit');
+		Route::post('/{application}', 'ApplicationController@update')->name('application.update');
+		Route::post('/{application}/delete', 'ApplicationController@delete')->name('application.delete');
+
+		Route::get('/{application}/{payment}', 'ApplicationController@sendMail')->name('application.mail');
+	});
 });
+ 
+Route::get('/multiplier', 'ApplicationController@getMultiplier')->name('multiplier');
 
 Auth::routes();

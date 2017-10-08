@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Rates;
 use App\Application;
+use App\Mail\ApplResponse;
+use App\Http\Controllers\Controller;
 
 use Image;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -19,7 +23,8 @@ class ApplicationController extends Controller
 
 	public function create()
 	{
-		return view('applications.create');
+        $rates = Rates::all();
+		return view('applications.create', compact('rates'));
 	}
 
     public function store(Request $request)
@@ -53,6 +58,15 @@ class ApplicationController extends Controller
 
     public function show(Application $application)
     {
-        return view('applications.show', compact('application'));
+        $conv_rate = Rates::where('name', $application->currency)->pluck('multiplier');
+        $payment = (integer)(($application->amount) / ($conv_rate[0]));
+        return view('applications.show', compact(['application', 'payment']));
+    }
+
+    public function sendMail(Application $application, $payment)
+    {
+        Mail::to($application->email)->send(new ApplResponse($application, $payment));
+        return redirect()->route('applications.index')
+                         ->withMessage('Mail sent successfully!');
     }
 }

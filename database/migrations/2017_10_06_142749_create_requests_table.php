@@ -20,6 +20,7 @@ class CreateRequestsTable extends Migration
             $table->string('passport_no');
             $table->enum('request_type', ['PTA', 'BTA']);
             $table->integer('amount');
+            $table->string('currency');
             $table->string('travel_date');
             $table->string('ticket_upload');
             $table->string('passport_upload');
